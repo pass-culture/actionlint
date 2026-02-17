@@ -28,6 +28,7 @@ var testAllUntrustedInputs = []string{
 	"github.event.discussion.title",
 	"github.event.discussion.body",
 	"github.head_ref",
+	"inputs.ENV",
 }
 
 func TestExprInsecureBuiltinUntrustedInputs(t *testing.T) {

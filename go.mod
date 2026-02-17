@@ -1,4 +1,4 @@
-module github.com/rhysd/actionlint
+module github.com/pass-culture/actionlint
 
 go 1.24.0
 
