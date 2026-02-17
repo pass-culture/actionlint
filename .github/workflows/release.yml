@@ -22,11 +22,11 @@ jobs:
         uses: actions/setup-go@v5
         with:
           go-version: stable
-          workdir: ./cmd/actionlint
 
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v6
         with:
           args: release --clean
+          workdir: ./cmd/actionlint
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
