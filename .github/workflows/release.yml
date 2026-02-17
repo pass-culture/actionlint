@@ -22,6 +22,7 @@ jobs:
         uses: actions/setup-go@v5
         with:
           go-version: stable
+          workdir: ./cmd/actionlint
 
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v6
