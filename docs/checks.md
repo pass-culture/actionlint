@@ -1422,14 +1422,26 @@ test.yaml:26:18: type of "age" input is "number" but its default value "teen" ca
    |
 26 |         default: teen
    |                  ^~~~
+test.yaml:33:24: "inputs" is potentially untrusted. avoid using it directly in inline scripts. instead, pass it through an environment variable. see https://docs.github.com/en/actions/reference/security/secure-use#good-practices-for-mitigating-script-injection-attacks for more details [expression]
+   |
+33 |       - run: echo "${{ inputs.massage }}"
+   |                        ^~~~~~~~~~~~~~
 test.yaml:33:24: property "massage" is not defined in object type {age: number; id: any; kind: string; message: string; name: string; verbose: bool} [expression]
    |
 33 |       - run: echo "${{ inputs.massage }}"
    |                        ^~~~~~~~~~~~~~
+test.yaml:35:28: "inputs" is potentially untrusted. avoid using it directly in inline scripts. instead, pass it through an environment variable. see https://docs.github.com/en/actions/reference/security/secure-use#good-practices-for-mitigating-script-injection-attacks for more details [expression]
+   |
+35 |       - run: echo "${{ env[inputs.verbose] }}"
+   |                            ^~~~~~~~~~~~~~~
 test.yaml:35:28: property access of object must be type of string but got "bool" [expression]
    |
 35 |       - run: echo "${{ env[inputs.verbose] }}"
    |                            ^~~~~~~~~~~~~~~
+test.yaml:37:28: "inputs" is potentially untrusted. avoid using it directly in inline scripts. instead, pass it through an environment variable. see https://docs.github.com/en/actions/reference/security/secure-use#good-practices-for-mitigating-script-injection-attacks for more details [expression]
+   |
+37 |       - run: echo "${{ env[inputs.age] }}"
+   |                            ^~~~~~~~~~~
 test.yaml:37:28: property access of object must be type of string but got "number" [expression]
    |
 37 |       - run: echo "${{ env[inputs.age] }}"
@@ -2224,6 +2236,10 @@ test.yaml:25:18: input "path" of workflow_call event has the default value "", b
    |
 25 |         default: ''
    |                  ^~
+test.yaml:31:24: "inputs" is potentially untrusted. avoid using it directly in inline scripts. instead, pass it through an environment variable. see https://docs.github.com/en/actions/reference/security/secure-use#good-practices-for-mitigating-script-injection-attacks for more details [expression]
+   |
+31 |       - run: echo "${{ inputs.scheme }}://${{ inputs.host }}:${{ inputs.port }}${{ inputs.path }}"
+   |                        ^~~~~~~~~~~~~
 ```
 
 [Playground](https://rhysd.github.io/actionlint/#eNp8kbtu8zAMhff/KYjgBzI5QS+TnqFDL+hcyDJdOZVFhaKQBoHevVDsBIYbd7M/kodHPOTVP4AD8Vfr6PBhtHMFAHQ+JInDN0A0Fnu8/AE0GA13QTryCt7ORaAW3l+fJi2tTk4UWJEQr1iOARVE4c5/jtBSFPV7Dr91HxxuDPV/TQdiWTD2TCyLttbq7v7hcT2T9qmvkUe4T8jHBe2XUpuLDxpU79DIxZ4Wu2RPi50rMO5Tx9goEE54w/X69i12VJ/DamhYxsnHqixJdfKSKqcF4+ApCoZrsFXpVIDGEqz+n05j7pshcMhZbbcTXKIqcILK/SHnKSnvynn1EwAA//+1Oa7A)
@@ -2324,6 +2340,10 @@ jobs:
 Output:
 
 ```
+test.yaml:20:23: "inputs" is potentially untrusted. avoid using it directly in inline scripts. instead, pass it through an environment variable. see https://docs.github.com/en/actions/reference/security/secure-use#good-practices-for-mitigating-script-injection-attacks for more details [expression]
+   |
+20 |         run: curl ${{ inputs.uri }} -d ${{ inputs.lucky_number }}
+   |                       ^~~~~~~~~~
 test.yaml:20:23: property "uri" is not defined in object type {lucky_number: number; url: string} [expression]
    |
 20 |         run: curl ${{ inputs.uri }} -d ${{ inputs.lucky_number }}
