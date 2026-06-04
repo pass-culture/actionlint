@@ -230,6 +230,12 @@ func TestExprInsecureDetectUntrustedValue(t *testing.T) {
 				"github.event.issue.title",
 			},
 		},
+		testCase{
+			"inputs.ENV",
+			[]string{
+				"inputs",
+			},
+		},
 	)
 
 	for _, tc := range tests {
