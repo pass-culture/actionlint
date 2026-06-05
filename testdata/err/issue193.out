@@ -1,1 +1,2 @@
+test.yaml:7:15: persist credentials should be explictly set [checkout-persist-credentials]
 test.yaml:8:42: got unexpected character '"' while lexing expression, expecting 'a'..'z', 'A'..'Z', '_', '0'..'9', ''', '}', '(', ')', '[', ']', '.', '!', '<', '>', '=', '&', '|', '*', ',', ' '. do you mean string literals? only single quotes are available for string delimiter [expression]

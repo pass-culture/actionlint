@@ -24,10 +24,12 @@ jobs:
       - run: shellcheck --version
       - run: pyflakes --version
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - run: git --version
       - uses: actions/setup-go@v5
         with:
-          go-version: '1.16'
+          go-version: "1.16"
       - run: go build ./cmd/actionlint
         env:
           CGO_ENABLED: 0
@@ -57,10 +59,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - run: git --version
       - uses: actions/setup-go@v5
         with:
-          go-version: '1.16'
+          go-version: "1.16"
       - run: go version
       - name: Install staticcheck
         run: |

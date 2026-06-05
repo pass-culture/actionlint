@@ -1,6 +1,8 @@
 package actionlint
 
-import "strings"
+import (
+	"strings"
+)
 
 // RuleEnvVar is a rule checker to check environment variables setup.
 type RuleEnvVar struct {

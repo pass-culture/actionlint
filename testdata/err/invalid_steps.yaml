@@ -25,7 +25,7 @@ jobs:
       - foo: aaa
         bar: bbb
       -
-      - { }
+      - {}
       - shell: bash
         working-directory: /foo/bar
         with:
