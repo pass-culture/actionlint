@@ -7,7 +7,7 @@ unexpected key "branch" for "push" section. expected one of "branches", "branche
     ^~~~~~~
 ```
 
-### Error at line 9, col 23 of `testdata/format/test.yaml`
+### Error at line 11, col 23 of `testdata/format/test.yaml`
 
 property "msg" is not defined in object type {}
 
@@ -16,7 +16,7 @@ property "msg" is not defined in object type {}
                       ^~~~~~~~~~
 ```
 
-### Error at line 10, col 9 of `testdata/format/test.yaml`
+### Error at line 12, col 9 of `testdata/format/test.yaml`
 
 unexpected key "with" for step to run shell command. expected one of "continue-on-error", "env", "id", "if", "name", "run", "shell", "timeout-minutes", "working-directory"
 

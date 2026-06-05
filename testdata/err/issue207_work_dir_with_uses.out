@@ -1,1 +1,2 @@
+test.yaml:7:15: persist credentials should be explictly set [checkout-persist-credentials]
 test.yaml:8:9: unexpected key "working-directory" for step to execute action. expected one of "continue-on-error", "env", "id", "if", "name", "timeout-minutes", "uses", "with" [syntax-check]

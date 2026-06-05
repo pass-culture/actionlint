@@ -1743,6 +1743,10 @@ jobs:
 Output:
 
 ```
+test.yaml:7:15: persist credentials should be explictly set [checkout-persist-credentials]
+  |
+7 |       - uses: actions/checkout
+  |               ^~~~~~~~~~~~~~~~
 test.yaml:7:15: specifying action "actions/checkout" in invalid format because ref is missing. available formats are "{owner}/{repo}@{ref}" or "{owner}/{repo}/{path}@{ref}" [action]
   |
 7 |       - uses: actions/checkout
@@ -1908,6 +1912,10 @@ jobs:
 Output:
 
 ```
+test.yaml:8:15: persist credentials should be explictly set [checkout-persist-credentials]
+  |
+8 |       - uses: actions/checkout@v3
+  |               ^~~~~~~~~~~~~~~~~~~
 test.yaml:8:15: the runner of "actions/checkout@v3" action is too old to run on GitHub Actions. update the action's version to fix this issue [action]
   |
 8 |       - uses: actions/checkout@v3

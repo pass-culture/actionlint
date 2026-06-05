@@ -13,20 +13,22 @@ jobs:
       attestations: write
     steps:
       - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.3'
+          ruby-version: "3.3"
       - run: gem install ronn
       - run: ronn ./man/actionlint.1.ronn
       - uses: actions/setup-go@v6
         with:
-          go-version: '1.26'
+          go-version: "1.26"
           check-latest: true
       - name: Get version
         run: echo VERSION="${GITHUB_REF#refs/tags/v}" >> "$GITHUB_ENV"
       - uses: goreleaser/goreleaser-action@v7
         with:
-          version: '~> v2'
+          version: "~> v2"
           args: release --clean
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -39,6 +41,7 @@ jobs:
         uses: actions/checkout@v6
         with:
           path: ./tmp-actionlint-for-update-ver
+          persist-credentials: false
           ref: main
           fetch-depth: 0
       - name: Update version in download script
@@ -59,12 +62,14 @@ jobs:
         with:
           identifier: rhysd.actionlint
           installers-regex: '_windows_\w+\.zip$'
-          release-notes-url: 'https://github.com/rhysd/actionlint/blob/main/CHANGELOG.md#${{ github.ref_name }}'
+          release-notes-url: "https://github.com/rhysd/actionlint/blob/main/CHANGELOG.md#${{ github.ref_name }}"
           token: ${{ secrets.WINGET_TOKEN }}
   docker:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
       - name: Get tag name
         id: tag
         run: |

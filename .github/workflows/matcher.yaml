@@ -2,13 +2,13 @@ name: Problem Matchers
 on:
   push:
     paths:
-      - 'scripts/generate-actionlint-matcher/*.js'
-      - 'testdata/examples/*.out'
-      - 'testdata/err/*.out'
+      - "scripts/generate-actionlint-matcher/*.js"
+      - "testdata/examples/*.out"
+      - "testdata/err/*.out"
     branches:
       - main
     tags-ignore:
-      - '*'
+      - "*"
   workflow_dispatch:
 
 jobs:
@@ -17,9 +17,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
       - uses: actions/setup-go@v6
         with:
-          go-version: '1.26'
+          go-version: "1.26"
           check-latest: true
       - uses: actions/setup-node@v6
         with:
