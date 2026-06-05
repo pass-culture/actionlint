@@ -9,14 +9,14 @@ on:
     branches:
       - main
     tags-ignore:
-      - '*'
+      - "*"
   pull_request:
     paths:
       - scripts/download-actionlint.bash
       - scripts/test-download-actionlint.bash
   schedule:
     # Every Saturday 6:41 in JST
-    - cron: '41 21 * * 5'
+    - cron: "41 21 * * 5"
   workflow_dispatch:
 
 permissions:
@@ -28,8 +28,15 @@ jobs:
     name: Unit tests
     strategy:
       matrix:
-        os: [ubuntu-latest, ubuntu-24.04-arm, macos-latest, windows-latest, macos-15-intel]
-        go: ['1.24', '1.25']
+        os:
+          [
+            ubuntu-latest,
+            ubuntu-24.04-arm,
+            macos-latest,
+            windows-latest,
+            macos-15-intel,
+          ]
+        go: ["1.24", "1.25"]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Install dependencies on macOS
@@ -58,6 +65,8 @@ jobs:
           pyflakes --version
         if: ${{ runner.os == 'Windows' }}
       - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
       - uses: actions/setup-go@v6
         with:
           go-version: ${{ matrix.go }}
@@ -88,9 +97,11 @@ jobs:
         working-directory: ./playground
     steps:
       - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
       - uses: actions/setup-go@v6
         with:
-          go-version: '1.25'
+          go-version: "1.25"
       - uses: actions/setup-node@v6
         with:
           node-version: "lts/*"
@@ -107,9 +118,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
       - uses: actions/setup-go@v6
         with:
-          go-version: '1.25'
+          go-version: "1.25"
       - name: Install dependencies
         run: |
           sudo apt-get install -y shellcheck
@@ -136,6 +149,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
       - name: Build image
         id: image
         uses: docker/build-push-action@v6
@@ -155,9 +170,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
       - uses: actions/setup-go@v6
         with:
-          go-version: '1.25'
+          go-version: "1.25"
       - uses: github/codeql-action/init@v4
         with:
           config-file: ./.github/codeql/codeql-config.yaml
@@ -178,6 +195,8 @@ jobs:
         working-directory: ./playground
     steps:
       - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
       - uses: actions/setup-node@v6
         with:
           node-version: "lts/*"
@@ -201,6 +220,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
       - run: ./scripts/test-download-actionlint.bash
         shell: bash
   go-generate:
@@ -211,9 +232,11 @@ jobs:
       pull-requests: write
     steps:
       - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
       - uses: actions/setup-go@v6
         with:
-          go-version: '1.25'
+          go-version: "1.25"
       - name: Check new release on GitHub
         run: go run ./scripts/generate-popular-actions -d
       - run: go generate
@@ -227,11 +250,11 @@ jobs:
         id: diff
       - uses: peter-evans/create-pull-request@v7
         with:
-          branch: 'ci/${{ github.run_id }}'
-          commit-message: 'update generated files by `go generate` on CI'
-          committer: 'github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>'
-          author: 'github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>'
-          title: 'Update generated files by CI'
+          branch: "ci/${{ github.run_id }}"
+          commit-message: "update generated files by `go generate` on CI"
+          committer: "github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"
+          author: "github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"
+          title: "Update generated files by CI"
           body: |
             This PR updates some generated files to the latest by running `go generate`.
             This PR was created by [this workflow run](https://github.com/rhysd/actionlint/actions/runs/${{ github.run_id }}) automatically.
@@ -243,9 +266,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
       - uses: actions/setup-go@v6
         with:
-          go-version: '1.25'
+          go-version: "1.25"
       - uses: actions/setup-node@v6
         with:
           node-version: "lts/*"
@@ -270,17 +295,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.3'
+          ruby-version: "3.3"
       - run: gem install ronn
       - run: ronn ./man/actionlint.1.ronn
       - uses: actions/setup-go@v6
         with:
-          go-version: '1.25'
+          go-version: "1.25"
       - uses: goreleaser/goreleaser-action@v6
         with:
-          version: '~> v2'
+          version: "~> v2"
           args: release --clean
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -289,6 +316,7 @@ jobs:
       - name: Clone nested repository to make version bump commit
         uses: actions/checkout@v6
         with:
+          persist-credentials: false
           path: ./tmp-actionlint-for-update-ver
           ref: main
           fetch-depth: 0
@@ -311,12 +339,14 @@ jobs:
         with:
           identifier: rhysd.actionlint
           installers-regex: '_windows_\w+\.zip$'
-          release-notes-url: 'https://github.com/rhysd/actionlint/blob/main/CHANGELOG.md#${{ github.ref_name }}'
+          release-notes-url: "https://github.com/rhysd/actionlint/blob/main/CHANGELOG.md#${{ github.ref_name }}"
           token: ${{ secrets.WINGET_TOKEN }}
   docker:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
       - name: Get tag name
         id: tag
         run: |

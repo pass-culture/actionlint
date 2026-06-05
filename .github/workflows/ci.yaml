@@ -29,6 +29,8 @@ jobs:
           pyflakes --version
         if: ${{ runner.os == 'Linux' }}
       - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
       - uses: actions/setup-go@v6
         with:
           go-version: ${{ matrix.go }}
@@ -63,6 +65,8 @@ jobs:
         working-directory: ./playground
     steps:
       - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
       - uses: actions/setup-go@v6
         with:
           go-version: "1.26"
@@ -83,6 +87,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
       - uses: actions/setup-go@v6
         with:
           go-version: "1.26"
@@ -113,6 +119,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
       - name: Build image
         id: image
         uses: docker/build-push-action@v7

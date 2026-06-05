@@ -25,6 +25,21 @@
               "helpUri": "https://github.com/rhysd/actionlint/blob/main/docs/checks.md"
             },
             {
+              "id": "checkout-persist-credentials",
+              "name": "CheckoutPersistCredentials",
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "description": "Checks that persist credentials is explicitly set. If not set it is true by default which means subsequent steps can read the GITHUB_TOKEN stored on the filesystem.",
+                "queryURI": "https://github.com/rhysd/actionlint/blob/main/docs/checks.md"
+              },
+              "fullDescription": {
+                "text": "Checks that persist credentials is explicitly set. If not set it is true by default which means subsequent steps can read the GITHUB_TOKEN stored on the filesystem."
+              },
+              "helpUri": "https://github.com/rhysd/actionlint/blob/main/docs/checks.md"
+            },
+            {
               "id": "credentials",
               "name": "Credentials",
               "defaultConfiguration": {
@@ -290,7 +305,7 @@
                   "uriBaseId": "%SRCROOT%"
                 },
                 "region": {
-                  "startLine": 9,
+                  "startLine": 11,
                   "startColumn": 23,
                   "endColumn": 32,
                   "snippet": {
@@ -314,7 +329,7 @@
                   "uriBaseId": "%SRCROOT%"
                 },
                 "region": {
-                  "startLine": 10,
+                  "startLine": 12,
                   "startColumn": 9,
                   "endColumn": 13,
                   "snippet": {

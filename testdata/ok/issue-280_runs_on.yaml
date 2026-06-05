@@ -7,25 +7,35 @@ jobs:
       group: ubuntu-runners
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
   test2:
     runs-on:
       labels: x64
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
   test3:
     runs-on:
       group: ubuntu-runners
       labels: x64
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
   test4:
     runs-on:
       labels: [x64, self-hosted]
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
   test5:
     runs-on:
       group: ubuntu-runners
       labels: [x64, self-hosted]
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false

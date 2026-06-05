@@ -563,6 +563,7 @@ func (l *Linter) check(
 			NewRuleJobNeeds(),
 			NewRuleAction(localActions),
 			NewRuleEnvVar(),
+			NewRuleCheckoutPersistCredentials(),
 			NewRuleID(),
 			NewRuleGlob(),
 			NewRulePermissions(),

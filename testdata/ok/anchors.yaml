@@ -52,6 +52,7 @@ jobs:
       - uses: actions/checkout@v6
         with:
           ref: *runner
+          persist-credentials: false
       - run: echo ${{ env.R }}
         env: *default_env
       - run: echo ${{ env.USER }}@${{ env.PASS }}
@@ -67,17 +68,17 @@ jobs:
         include:
           - package: &package
               name: foo
-              version: '0.1.2'
+              version: "0.1.2"
             node: &node
-              version: '20'
+              version: "20"
               path: /path/to/node20
           - package: *package
             node:
-              version: '24'
+              version: "24"
               path: /path/to/node24
           - package:
               name: bar
-              version: '1.0.0'
+              version: "1.0.0"
             node: *node
           - package: *package
             node: *node
@@ -87,7 +88,7 @@ jobs:
       - run: npm install ${{ matrix.package.name }}@${{ matrix.package.version }}
   test5:
     container:
-      image: 'example.com/owner/image'
+      image: "example.com/owner/image"
       credentials: &cred
         username: ${{ secrets.user }}
         password: ${{ secrets.password }}

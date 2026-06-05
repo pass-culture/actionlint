@@ -5,9 +5,13 @@ jobs:
     steps:
       # ERROR: ref is missing
       - uses: actions/checkout
+        with:
+          persist-credentials: false
       # ERROR: owner name is missing
       - uses: checkout@v2
+        with:
+          persist-credentials: false
       # ERROR: tag is empty
-      - uses: 'docker://image:'
+      - uses: "docker://image:"
       # ERROR: local action must start with './'
       - uses: .github/my-actions/do-something
