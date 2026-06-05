@@ -1,6 +1,7 @@
 package actionlint
 
 import (
+	"slices"
 	"strings"
 )
 
@@ -137,8 +138,17 @@ var BuiltinUntrustedInputs = UntrustedInputSearchRoots{
 			),
 		),
 		NewUntrustedInputMap("head_ref"),
+		NewUntrustedInputMap("ref"),
+		NewUntrustedInputMap("ref_name"),
+		NewUntrustedInputMap("actor"),
+		NewUntrustedInputMap("trigerring_actor"),
+		NewUntrustedInputMap("workflow"),
+		NewUntrustedInputMap("workflow_ref"),
 	),
+	"inputs": NewUntrustedInputMap("inputs"),
 }
+
+var CatchAllUntrustedInputs = []string{"inputs"}
 
 // UntrustedInputChecker is a checker to detect untrusted inputs in an expression syntax tree.
 // This checker checks object property accesses, array index accesses, and object filters. And
@@ -191,8 +201,14 @@ func (u *UntrustedInputChecker) onVar(v *VariableNode) {
 	if !ok {
 		return
 	}
-	u.start = v
-	u.cur = append(u.cur, c)
+	if slices.Contains(CatchAllUntrustedInputs, v.Name) {
+		u.start = v
+		u.cur = append(u.cur, c)
+		u.end()
+	} else {
+		u.start = v
+		u.cur = append(u.cur, c)
+	}
 }
 
 func (u *UntrustedInputChecker) onPropAccess(name string) {
@@ -267,6 +283,9 @@ func (u *UntrustedInputChecker) end() {
 	var inputs []string
 	for _, cur := range u.cur {
 		if cur.Children != nil {
+			if slices.Contains(CatchAllUntrustedInputs, cur.Name) {
+				inputs = append(inputs, cur.Name)
+			}
 			continue // When `Children` is nil, the node is a leaf
 		}
 		var b strings.Builder
