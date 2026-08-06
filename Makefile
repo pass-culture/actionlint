@@ -1,3 +1,4 @@
+MAKEFLAGS += -r
 SRCS := $(filter-out %_test.go, $(wildcard *.go cmd/actionlint/*.go)) go.mod go.sum .git-hooks/.timestamp
 TESTS := $(filter %_test.go, $(wildcard *.go))
 TOOL := $(filter %_test.go, $(wildcard scripts/*/*.go))
