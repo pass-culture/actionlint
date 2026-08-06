@@ -15,5 +15,6 @@ FROM alpine:${ALPINE_VER}
 COPY --from=builder /go/src/app/actionlint /usr/local/bin/
 COPY --from=shellcheck /bin/shellcheck /usr/local/bin/shellcheck
 RUN apk add --no-cache py3-pyflakes
+# hadolint ignore=DL3066
 USER guest
 ENTRYPOINT ["/usr/local/bin/actionlint"]
