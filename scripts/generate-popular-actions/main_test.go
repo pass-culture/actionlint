@@ -464,16 +464,16 @@ func TestInvalidCommandArgs(t *testing.T) {
 }
 
 func TestDetectErrorBadRequest(t *testing.T) {
-	stdout := io.Discard
+	stdout := &bytes.Buffer{}
 	stderr := &bytes.Buffer{}
 	f := filepath.Join("testdata", "registry", "empty_slug.json")
 	status := newGen(stdout, stderr, io.Discard).run([]string{"test", "-d", "-r", f})
-	if status != 1 {
-		t.Fatal("exit status is not 1:", status)
+	if status != 0 {
+		t.Fatal("exit status is not 0:", status)
 	}
-	out := stderr.String()
-	if !strings.Contains(out, "head request for https://raw.githubusercontent.com//v2/action.yml was not successful") {
-		t.Fatalf("stderr was unexpected: %q", out)
+	out := stdout.String()
+	if !strings.Contains(out, "No new release was found") {
+		t.Fatalf("stdout was unexpected: %q", out)
 	}
 }
 
