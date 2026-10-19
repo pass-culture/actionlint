@@ -15,10 +15,14 @@ jobs:
 Output:
 
 ```
-test.yaml:6:23: undefined variable "unknown". available variables are "env", "github", "inputs", "job", "matrix", "needs", "runner", "secrets", "steps", "strategy", "vars" [expression]
+test.yaml:6:14: github actions variables should not be used directly in run fields. Use an environment variable instead [github-actions-variable-in-run]
   |
 6 |       - run: echo ${{ unknown }}
-  |                       ^~~~~~~
+  |              ^~~~
+  test.yaml:6:23: undefined variable "unknown". available variables are "env", "github", "inputs", "job", "matrix", "needs", "runner", "secrets", "steps", "strategy", "vars" [expression]
+  |
+6 |       - run: echo ${{ unknown }}
+  |                       ^~~~~~~              ^~~~~~~
 ```
 
 <a id="hello2"></a>
