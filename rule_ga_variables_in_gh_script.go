@@ -9,7 +9,7 @@ type RuleGAVariableInGHScript struct {
 	RuleBase
 }
 
-// NewRuleGAVariableInGHScrip creates new RuleGAVariableInGHScrip instance.
+// NewRuleGAVariableInGHScript creates new RuleGAVariableInGHScrip instance.
 func NewRuleGAVariableInGHScript() *RuleGAVariableInGHScript {
 	return &RuleGAVariableInGHScript{
 		RuleBase: RuleBase{
