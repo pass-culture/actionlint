@@ -1,2 +1,5 @@
+test.yaml:8:14: github actions variables should not be used directly in run fields. Use an environment variable instead [github-actions-variable-in-run]
 test.yaml:8:23: property "cache" is not defined in object type {} [expression]
+test.yaml:16:14: github actions variables should not be used directly in run fields. Use an environment variable instead [github-actions-variable-in-run]
+test.yaml:18:14: github actions variables should not be used directly in run fields. Use an environment variable instead [github-actions-variable-in-run]
 test.yaml:18:23: property "cache_hit" is not defined in object type {cache-hit: string} [expression]

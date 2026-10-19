@@ -371,7 +371,6 @@ type ExprSemanticsChecker struct {
 	errs                  []*ExprError
 	varsCopied            bool
 	githubVarCopied       bool
-	untrusted             *UntrustedInputChecker
 	availableContexts     []string
 	availableSpecialFuncs []string
 	configVars            []string
@@ -379,16 +378,13 @@ type ExprSemanticsChecker struct {
 
 // NewExprSemanticsChecker creates new ExprSemanticsChecker instance. When checkUntrustedInput is
 // set to true, the checker will make use of possibly untrusted inputs error.
-func NewExprSemanticsChecker(checkUntrustedInput bool, configVars []string) *ExprSemanticsChecker {
+func NewExprSemanticsChecker(configVars []string) *ExprSemanticsChecker {
 	c := &ExprSemanticsChecker{
 		funcs:           BuiltinFuncSignatures,
 		vars:            BuiltinGlobalVariableTypes,
 		varsCopied:      false,
 		githubVarCopied: false,
 		configVars:      configVars,
-	}
-	if checkUntrustedInput {
-		c.untrusted = NewUntrustedInputChecker(BuiltinUntrustedInputs)
 	}
 	return c
 }
@@ -582,18 +578,6 @@ func (sema *ExprSemanticsChecker) checkSpecialFunctionAvailability(n *FuncCallNo
 		n.Callee,
 		quotes(allowed),
 	)
-}
-
-func (sema *ExprSemanticsChecker) visitUntrustedCheckerOnEnterNode(n ExprNode) {
-	if sema.untrusted != nil {
-		sema.untrusted.OnVisitNodeEnter(n)
-	}
-}
-
-func (sema *ExprSemanticsChecker) visitUntrustedCheckerOnLeaveNode(n ExprNode) {
-	if sema.untrusted != nil {
-		sema.untrusted.OnVisitNodeLeave(n)
-	}
 }
 
 func (sema *ExprSemanticsChecker) checkVariable(n *VariableNode) ExprType {
@@ -1063,8 +1047,6 @@ func (sema *ExprSemanticsChecker) checkLogicalOp(n *LogicalOpNode) ExprType {
 }
 
 func (sema *ExprSemanticsChecker) check(expr ExprNode) ExprType {
-	sema.visitUntrustedCheckerOnEnterNode(expr)
-	defer sema.visitUntrustedCheckerOnLeaveNode(expr) // Call this method in bottom-up order
 
 	switch e := expr.(type) {
 	case *VariableNode:
@@ -1101,15 +1083,8 @@ func (sema *ExprSemanticsChecker) check(expr ExprNode) ExprType {
 // while checking the expression as the second return value.
 func (sema *ExprSemanticsChecker) Check(expr ExprNode) (ExprType, []*ExprError) {
 	sema.errs = []*ExprError{}
-	if sema.untrusted != nil {
-		sema.untrusted.Init()
-	}
 	ty := sema.check(expr)
 	errs := sema.errs
-	if sema.untrusted != nil {
-		sema.untrusted.OnVisitEnd()
-		errs = append(errs, sema.untrusted.Errs()...)
-	}
 	return ty, errs
 }
 

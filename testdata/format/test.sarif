@@ -115,6 +115,36 @@
               "helpUri": "https://github.com/rhysd/actionlint/blob/main/docs/checks.md"
             },
             {
+              "id": "github-actions-variable-in-github-scripts",
+              "name": "GithubActionsVariableInGithubScripts",
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "description": "Checks that no Github Actions variable is directly put in script field of github_script.",
+                "queryURI": "https://github.com/rhysd/actionlint/blob/main/docs/checks.md"
+              },
+              "fullDescription": {
+                "text": "Checks that no Github Actions variable is directly put in script field of github_script."
+              },
+              "helpUri": "https://github.com/rhysd/actionlint/blob/main/docs/checks.md"
+            },
+            {
+              "id": "github-actions-variable-in-run",
+              "name": "GithubActionsVariableInRun",
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "description": "Checks that no Github Actions is directly put in a run field.",
+                "queryURI": "https://github.com/rhysd/actionlint/blob/main/docs/checks.md"
+              },
+              "fullDescription": {
+                "text": "Checks that no Github Actions is directly put in a run field."
+              },
+              "helpUri": "https://github.com/rhysd/actionlint/blob/main/docs/checks.md"
+            },
+            {
               "id": "glob",
               "name": "Glob",
               "defaultConfiguration": {
@@ -320,11 +350,11 @@
                   "uriBaseId": "%SRCROOT%"
                 },
                 "region": {
-                  "startLine": 11,
-                  "startColumn": 23,
-                  "endColumn": 32,
+                  "startLine": 13,
+                  "startColumn": 20,
+                  "endColumn": 29,
                   "snippet": {
-                    "text": "      - run: echo ${{ matrix.msg }}\n                      ^~~~~~~~~~"
+                    "text": "          MSG: ${{ matrix.msg }}\n                   ^~~~~~~~~~"
                   }
                 }
               }
@@ -344,7 +374,7 @@
                   "uriBaseId": "%SRCROOT%"
                 },
                 "region": {
-                  "startLine": 12,
+                  "startLine": 14,
                   "startColumn": 9,
                   "endColumn": 13,
                   "snippet": {

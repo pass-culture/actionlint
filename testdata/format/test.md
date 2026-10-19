@@ -7,16 +7,16 @@ unexpected key "branch" for "push" section. expected one of "branches", "branche
     ^~~~~~~
 ```
 
-### Error at line 11, col 23 of `testdata/format/test.yaml`
+### Error at line 13, col 20 of `testdata/format/test.yaml`
 
 property "msg" is not defined in object type {}
 
 ```
-      - run: echo ${{ matrix.msg }}
-                      ^~~~~~~~~~
+          MSG: ${{ matrix.msg }}
+                   ^~~~~~~~~~
 ```
 
-### Error at line 12, col 9 of `testdata/format/test.yaml`
+### Error at line 14, col 9 of `testdata/format/test.yaml`
 
 unexpected key "with" for step to run shell command. expected one of "continue-on-error", "env", "id", "if", "name", "run", "shell", "timeout-minutes", "working-directory"
 

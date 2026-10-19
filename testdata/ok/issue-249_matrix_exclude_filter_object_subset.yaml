@@ -23,4 +23,7 @@ jobs:
               matrix: arm
     runs-on: ubuntu-latest
     steps:
-      - run: echo 'name is ${{ matrix.os.name }} and arch is ${{ matrix.arch.name }}'
+      - run: echo "name is $OS_NAME and arch is $ARCH_NAME"
+        env:
+          OS_NAME: ${{ matrix.os.name }}
+          ARCH_NAME: ${{ matrix.arch.name }}

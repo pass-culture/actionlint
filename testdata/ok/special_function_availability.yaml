@@ -30,7 +30,7 @@ jobs:
     steps:
       -
         # jobs.<job_id>.steps.run
-        run: echo "${{ hashFiles('...') }}"
+        run: echo "$FOO"
         # jobs.<job_id>.steps.name
         name: ${{ hashFiles('...') }}
         # jobs.<job_id>.steps.continue-on-error

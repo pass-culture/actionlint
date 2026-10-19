@@ -13,8 +13,12 @@ jobs:
     needs: [caller]
     runs-on: ubuntu-latest
     steps:
-      - run: echo '${{ needs.caller.outputs.bar }} is existing'
-      - run: echo '${{ needs.caller.outputs.ccc }} is not existing'
+      - run: echo "$BAR is existing'
+        env:
+          BAR: ${{ needs.caller.outputs.bar }}
+      - run: echo "$CCC is not existing"
+        env:
+          CCC: ${{ needs.caller.outputs.ccc }}
   empty:
     uses: ./workflows/empty_reusable.yaml
     with:

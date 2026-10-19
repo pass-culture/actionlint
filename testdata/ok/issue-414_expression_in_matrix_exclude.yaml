@@ -9,4 +9,6 @@ jobs:
         exclude:
           - foo: ${{ github.event_name }}
     steps:
-      - run: echo ${{ matrix.foo }}
+      - run: echo "$FOO"
+        env:
+          FOO: ${{ matrix.foo }}

@@ -793,7 +793,7 @@ func TestExprSemanticsCheckOK(t *testing.T) {
 				t.Fatal("Parse error:", tc.input)
 			}
 
-			c := NewExprSemanticsChecker(false, nil)
+			c := NewExprSemanticsChecker(nil)
 			c.SetContextAvailability([]string{"github", "job", "jobs", "matrix", "steps", "needs", "env", "inputs", "secrets", "vars", "runner"})
 			if tc.funcs != nil {
 				c.funcs = tc.funcs
@@ -1352,7 +1352,7 @@ func TestExprSemanticsCheckError(t *testing.T) {
 				t.Fatal("Parse error:", tc.input)
 			}
 
-			c := NewExprSemanticsChecker(false, tc.configVars)
+			c := NewExprSemanticsChecker(tc.configVars)
 			if tc.funcs != nil {
 				c.funcs = tc.funcs // Set functions for testing
 			}
@@ -1552,7 +1552,7 @@ func TestExprCompareOperandsCheck(t *testing.T) {
 						t.Fatal("Parse error:", input)
 					}
 
-					c := NewExprSemanticsChecker(false, nil)
+					c := NewExprSemanticsChecker(nil)
 					c.vars = map[string]ExprType{
 						"number": NumberType{},
 						"string": StringType{},
@@ -1640,7 +1640,7 @@ func TestExprBuiltinFunctionSignatures(t *testing.T) {
 }
 
 func TestExprSemanticsCheckerUpdateMatrix(t *testing.T) {
-	c := NewExprSemanticsChecker(false, nil)
+	c := NewExprSemanticsChecker(nil)
 	ty := NewEmptyObjectType()
 	prev := c.vars["matrix"]
 	c.UpdateMatrix(ty)
@@ -1655,7 +1655,7 @@ func TestExprSemanticsCheckerUpdateMatrix(t *testing.T) {
 }
 
 func TestExprSemanticsCheckerUpdateSteps(t *testing.T) {
-	c := NewExprSemanticsChecker(false, nil)
+	c := NewExprSemanticsChecker(nil)
 	ty := NewEmptyObjectType()
 	prev := c.vars["steps"]
 	c.UpdateSteps(ty)
@@ -1671,7 +1671,7 @@ func TestExprSemanticsCheckerUpdateSteps(t *testing.T) {
 
 func TestExprSematincsCheckerUpdateDispatchInputsVarType(t *testing.T) {
 	ty := NewStrictObjectType(map[string]ExprType{"foo": NullType{}})
-	c := NewExprSemanticsChecker(false, nil)
+	c := NewExprSemanticsChecker(nil)
 	c.UpdateDispatchInputs(ty)
 	o := c.vars["github"].(*ObjectType).Props["event"].(*ObjectType).Props["inputs"].(*ObjectType)
 	if _, ok := o.Props["foo"]; !ok {
@@ -1738,7 +1738,7 @@ func TestExprSemanticsCheckerUpdateInputsMultipleTimes(t *testing.T) {
 	for _, tc := range tests {
 		name := fmt.Sprintf("%v then %v", tc.first, tc.second)
 		t.Run(name, func(t *testing.T) {
-			c := NewExprSemanticsChecker(false, nil)
+			c := NewExprSemanticsChecker(nil)
 			c.UpdateInputs(tc.first)
 			c.UpdateDispatchInputs(tc.second)
 			have := c.vars["inputs"]
@@ -2012,7 +2012,7 @@ func TestExprIsConstant(t *testing.T) {
 				t.Fatalf("Parse error for input %q: %s", tc.input, err)
 			}
 
-			c := NewExprSemanticsChecker(false, nil)
+			c := NewExprSemanticsChecker(nil)
 			b := c.IsConstant(e)
 			if b != tc.isConst {
 				t.Fatalf("wanted %v but got %v for input %q", tc.isConst, b, tc.input)

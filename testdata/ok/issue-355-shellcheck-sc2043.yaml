@@ -4,6 +4,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          for x in ${{ github.run_number }}; do
+          for x in $RUN_NUMBER; do
             echo "$x"
           done
+        env:
+          RUN_NUMBER: ${{ github.run_number }}

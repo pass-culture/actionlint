@@ -11,4 +11,6 @@ jobs:
             core.setOutput('foo', 'bar');
       - id: call
         run: |
-          echo "Test output: ${{ steps.test.outputs.foo }}"
+          echo "Test output: $FOO"
+        env:
+          FOO: ${{ steps.test.outputs.foo }}

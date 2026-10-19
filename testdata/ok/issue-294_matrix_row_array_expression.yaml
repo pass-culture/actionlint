@@ -7,4 +7,6 @@ jobs:
       matrix:
         PR: ${{ github.event.workflow_run.pull_requests.*.number }}
     steps:
-      - run: echo '${{ matrix.PR }}'
+      - run: echo "$PR"
+        env:
+          PR: ${{ matrix.PR }}

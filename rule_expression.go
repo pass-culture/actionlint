@@ -385,7 +385,7 @@ func (rule *RuleExpression) checkOneExpression(s *String, what, workflowKey stri
 		return nil
 	}
 
-	ts, ok := rule.checkExprsIn(s.Value, s.Pos, s.Quoted, false, workflowKey)
+	ts, ok := rule.checkExprsIn(s.Value, s.Pos, s.Quoted, workflowKey)
 	if !ok {
 		return nil
 	}
@@ -653,7 +653,7 @@ func (rule *RuleExpression) checkIfCondition(str *String, workflowKey string) {
 			return
 		}
 
-		if ty, ok := rule.checkSemanticsOfExprNode(expr, line, col, false, workflowKey); ok {
+		if ty, ok := rule.checkSemanticsOfExprNode(expr, line, col, workflowKey); ok {
 			condTy = ty
 		}
 	}
@@ -677,7 +677,7 @@ func (rule *RuleExpression) checkString(str *String, workflowKey string) []typed
 		return nil
 	}
 
-	ts, ok := rule.checkExprsIn(str.Value, str.Pos, str.Quoted, false, workflowKey)
+	ts, ok := rule.checkExprsIn(str.Value, str.Pos, str.Quoted, workflowKey)
 	if !ok {
 		return nil
 	}
@@ -691,7 +691,7 @@ func (rule *RuleExpression) checkScriptString(str *String, workflowKey string) {
 		return
 	}
 
-	ts, ok := rule.checkExprsIn(str.Value, str.Pos, str.Quoted, true, workflowKey)
+	ts, ok := rule.checkExprsIn(str.Value, str.Pos, str.Quoted, workflowKey)
 	if !ok {
 		return
 	}
@@ -731,7 +731,7 @@ func (rule *RuleExpression) checkFloat(f *Float, workflowKey string) {
 	rule.checkNumberExpression(f.Expression, "float number value", workflowKey)
 }
 
-func (rule *RuleExpression) checkExprsIn(s string, pos *Pos, quoted, checkUntrusted bool, workflowKey string) ([]typedExpr, bool) {
+func (rule *RuleExpression) checkExprsIn(s string, pos *Pos, quoted bool, workflowKey string) ([]typedExpr, bool) {
 	// TODO: Line number is not correct when the string contains newlines.
 
 	line, col := pos.Line, pos.Col
@@ -751,7 +751,7 @@ func (rule *RuleExpression) checkExprsIn(s string, pos *Pos, quoted, checkUntrus
 		offset += start
 		col := col + offset
 
-		ty, offsetAfter, ok := rule.checkSemantics(s, line, col, checkUntrusted, workflowKey)
+		ty, offsetAfter, ok := rule.checkSemantics(s, line, col, workflowKey)
 		if !ok {
 			return nil, false
 		}
@@ -772,12 +772,12 @@ func (rule *RuleExpression) exprError(err *ExprError, lineBase, colBase int) {
 	rule.Error(pos, err.Message)
 }
 
-func (rule *RuleExpression) checkSemanticsOfExprNode(expr ExprNode, line, col int, checkUntrusted bool, workflowKey string) (ExprType, bool) {
+func (rule *RuleExpression) checkSemanticsOfExprNode(expr ExprNode, line, col int, workflowKey string) (ExprType, bool) {
 	var v []string
 	if rule.config != nil {
 		v = rule.config.ConfigVariables
 	}
-	c := NewExprSemanticsChecker(checkUntrusted, v)
+	c := NewExprSemanticsChecker(v)
 	if rule.matrixTy != nil {
 		c.UpdateMatrix(rule.matrixTy)
 	}
@@ -816,7 +816,7 @@ func (rule *RuleExpression) checkSemanticsOfExprNode(expr ExprNode, line, col in
 	return ty, len(errs) == 0
 }
 
-func (rule *RuleExpression) checkSemantics(src string, line, col int, checkUntrusted bool, workflowKey string) (ExprType, int, bool) {
+func (rule *RuleExpression) checkSemantics(src string, line, col int, workflowKey string) (ExprType, int, bool) {
 	l := NewExprLexer(src)
 	p := NewExprParser()
 	expr, err := p.Parse(l)
@@ -824,7 +824,7 @@ func (rule *RuleExpression) checkSemantics(src string, line, col int, checkUntru
 		rule.exprError(err, line, col)
 		return nil, l.Offset(), false
 	}
-	t, ok := rule.checkSemanticsOfExprNode(expr, line, col, checkUntrusted, workflowKey)
+	t, ok := rule.checkSemanticsOfExprNode(expr, line, col, workflowKey)
 	return t, l.Offset(), ok
 }
 
@@ -1051,7 +1051,7 @@ func (rule *RuleExpression) checkRawYAMLValue(v RawYAMLValue) ExprType {
 }
 
 func (rule *RuleExpression) checkRawYAMLString(y *RawYAMLString) ExprType {
-	ts, ok := rule.checkExprsIn(y.Value, y.Pos(), false, false, "jobs.<job_id>.strategy")
+	ts, ok := rule.checkExprsIn(y.Value, y.Pos(), false, "jobs.<job_id>.strategy")
 
 	if isExprAssigned(y.Value) {
 		if !ok || len(ts) != 1 {

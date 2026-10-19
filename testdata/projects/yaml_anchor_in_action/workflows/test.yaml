@@ -6,4 +6,6 @@ jobs:
     steps:
       - uses: ./action
         id: test
-      - run: echo ${{ steps.test.outputs.foo }}
+      - run: echo $FOO
+        env:
+          FOO: ${{ steps.test.outputs.foo }}
