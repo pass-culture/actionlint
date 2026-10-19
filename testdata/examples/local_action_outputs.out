@@ -1,2 +1,5 @@
+test.yaml:8:14: github actions variables should not be used directly in run fields. Use an environment variable instead [github-actions-variable-in-run]
 test.yaml:8:23: property "my_action" is not defined in object type {} [expression]
+test.yaml:13:14: github actions variables should not be used directly in run fields. Use an environment variable instead [github-actions-variable-in-run]
+test.yaml:15:14: github actions variables should not be used directly in run fields. Use an environment variable instead [github-actions-variable-in-run]
 test.yaml:15:23: property "some-value" is not defined in object type {some_value: string} [expression]

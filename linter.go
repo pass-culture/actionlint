@@ -572,6 +572,8 @@ func (l *Linter) check(
 			NewRuleDeprecatedCommands(),
 			NewRuleIfCond(),
 			NewRuleSecretsInherit(),
+			NewRuleGAVariableInRun(),
+			NewRuleGAVariableInGHScript(),
 		}
 		if l.shellcheck != "" {
 			r, err := NewRuleShellcheck(l.shellcheck, proc)

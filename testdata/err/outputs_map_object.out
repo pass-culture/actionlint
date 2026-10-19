@@ -1,1 +1,2 @@
-/{string => string}/
+test.yaml:9:14: github actions variables should not be used directly in run fields. Use an environment variable instead [github-actions-variable-in-run]
+test.yaml:9:19: object, array, and null values should not be evaluated in template with ${{ }} but evaluating the value of type {string => string} [expression]

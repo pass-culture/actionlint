@@ -1,1 +1,6 @@
+workflows/test.yaml:8:14: github actions variables should not be used directly in run fields. Use an environment variable instead [github-actions-variable-in-run]
+workflows/test.yaml:9:14: github actions variables should not be used directly in run fields. Use an environment variable instead [github-actions-variable-in-run]
+workflows/test.yaml:11:14: github actions variables should not be used directly in run fields. Use an environment variable instead [github-actions-variable-in-run]
+workflows/test.yaml:12:14: github actions variables should not be used directly in run fields. Use an environment variable instead [github-actions-variable-in-run]
+workflows/test.yaml:14:14: github actions variables should not be used directly in run fields. Use an environment variable instead [github-actions-variable-in-run]
 workflows/test.yaml:14:24: undefined configuration variable "piyo". defined configuration variables in actionlint.yaml are "FOO", "WOO" [expression]

@@ -9,4 +9,6 @@ jobs:
           name: rhysd
           message: hello
         id: my_action
-      - run: echo 'User ID is ${{ steps.my_action.outputs.user_id }}'
+      - run: echo "User ID is $USER_ID"
+        env:
+          USER_ID: ${{ steps.my_action.outputs.user_id }}

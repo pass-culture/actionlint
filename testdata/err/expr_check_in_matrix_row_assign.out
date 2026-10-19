@@ -1,1 +1,3 @@
+test.yaml:12:14: github actions variables should not be used directly in run fields. Use an environment variable instead [github-actions-variable-in-run]
 test.yaml:12:23: receiver of object dereference "foo" must be type of object but got "number" [expression]
+test.yaml:23:14: github actions variables should not be used directly in run fields. Use an environment variable instead [github-actions-variable-in-run]

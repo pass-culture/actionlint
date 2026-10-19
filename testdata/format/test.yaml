@@ -8,6 +8,8 @@ jobs:
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
-      - run: echo ${{ matrix.msg }}
+      - run: echo $MSG
+        env:
+          MSG: ${{ matrix.msg }}
         with:
           arg: foo

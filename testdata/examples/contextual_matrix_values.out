@@ -1,3 +1,7 @@
-/test\.yaml:19:24: property "platform" is not defined in object type {.+} \[expression\]/
-/test\.yaml:21:24: property "dev" is not defined in object type {.+} \[expression\]/
+test.yaml:19:14: github actions variables should not be used directly in run fields. Use an environment variable instead [github-actions-variable-in-run]
+test.yaml:19:24: property "platform" is not defined in object type {node: number; npm: string; os: string; package: {name: string; optional: bool}} [expression]
+test.yaml:21:14: github actions variables should not be used directly in run fields. Use an environment variable instead [github-actions-variable-in-run]
+test.yaml:21:24: property "dev" is not defined in object type {name: string; optional: bool} [expression]
+test.yaml:23:14: github actions variables should not be used directly in run fields. Use an environment variable instead [github-actions-variable-in-run]
+test.yaml:34:14: github actions variables should not be used directly in run fields. Use an environment variable instead [github-actions-variable-in-run]
 test.yaml:34:24: property "os" is not defined in object type {} [expression]

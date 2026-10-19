@@ -20,4 +20,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - run: echo '${{ inputs.my_input_1 }}'
+      - run: echo "$MY_INPUT_1"
+        env:
+          MY_INPUT_1: ${{ inputs.my_input_1 }}

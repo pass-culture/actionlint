@@ -21,15 +21,50 @@ jobs:
     needs: [upper, lower]
     runs-on: ubuntu-latest
     steps:
-      - run: echo 'OK    ${{ needs.upper.outputs.my_output_1 }}'
-      - run: echo 'OK    ${{ needs.upper.outputs.MY_OUTPUT_1 }}'
-      - run: echo 'OK    ${{ needs.lower.outputs.my_output_1 }}'
-      - run: echo 'OK    ${{ needs.lower.outputs.MY_OUTPUT_1 }}'
-      - run: echo 'OK    ${{ needs.upper.outputs.my_output_2 }}'
-      - run: echo 'OK    ${{ needs.upper.outputs.MY_OUTPUT_2 }}'
-      - run: echo 'OK    ${{ needs.lower.outputs.my_output_2 }}'
-      - run: echo 'OK    ${{ needs.lower.outputs.MY_OUTPUT_2 }}'
-      - run: echo 'ERROR ${{ needs.upper.outputs.my_output_3 }}'
-      - run: echo 'ERROR ${{ needs.upper.outputs.MY_OUTPUT_3 }}'
-      - run: echo 'ERROR ${{ needs.lower.outputs.my_output_3 }}'
-      - run: echo 'ERROR ${{ needs.lower.outputs.MY_OUTPUT_3 }}'
+      - run: echo 'OK    $MY_OUTPUT_1'
+        env:
+          MY_OUTPUT_1: ${{ needs.upper.outputs.my_output_1 }}
+
+      - run: echo 'OK    $MY_OUTPUT_1'
+        env:
+          MY_OUTPUT_1: ${{ needs.upper.outputs.MY_OUTPUT_1 }}
+
+      - run: echo 'OK    $MY_OUTPUT_1'
+        env:
+          MY_OUTPUT_1: ${{ needs.lower.outputs.my_output_1 }}
+
+      - run: echo 'OK    $MY_OUTPUT_1'
+        env:
+          MY_OUTPUT_1: ${{ needs.lower.outputs.MY_OUTPUT_1 }}
+
+      - run: echo 'OK    $MY_OUTPUT_2'
+        env:
+          MY_OUTPUT_2: ${{ needs.upper.outputs.my_output_2 }}
+
+      - run: echo 'OK    $MY_OUTPUT_2'
+        env:
+          MY_OUTPUT_2: ${{ needs.upper.outputs.MY_OUTPUT_2 }}
+
+      - run: echo 'OK    $MY_OUTPUT_2'
+        env:
+          MY_OUTPUT_2: ${{ needs.lower.outputs.my_output_2 }}
+
+      - run: echo 'OK    $MY_OUTPUT_2'
+        env:
+          MY_OUTPUT_2: ${{ needs.lower.outputs.MY_OUTPUT_2 }}
+
+      - run: echo 'ERROR $MY_OUTPUT_3'
+        env:
+          MY_OUTPUT_3: ${{ needs.upper.outputs.my_output_3 }} 
+
+      - run: echo 'ERROR $MY_OUTPUT_3'
+        env:
+          MY_OUTPUT_3: ${{ needs.upper.outputs.MY_OUTPUT_3 }}
+
+      - run: echo 'ERROR $MY_OUTPUT_3'
+        env:
+          MY_OUTPUT_3: ${{ needs.lower.outputs.my_output_3 }}
+
+      - run: echo 'ERROR $MY_OUTPUT_3'
+        env:
+          MY_OUTPUT_3: ${{ needs.lower.outputs.MY_OUTPUT_3 }}

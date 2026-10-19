@@ -1,1 +1,4 @@
+test.yaml:18:14: github actions variables should not be used directly in run fields. Use an environment variable instead [github-actions-variable-in-run]
+test.yaml:20:14: github actions variables should not be used directly in run fields. Use an environment variable instead [github-actions-variable-in-run]
+test.yaml:22:14: github actions variables should not be used directly in run fields. Use an environment variable instead [github-actions-variable-in-run]
 test.yaml:22:19: object, array, and null values should not be evaluated in template with ${{ }} but evaluating the value of type array<any> [expression]

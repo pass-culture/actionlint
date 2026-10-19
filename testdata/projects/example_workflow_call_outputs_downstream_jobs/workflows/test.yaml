@@ -8,6 +8,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # OK. `version` is defined in the reusable workflow
-      - run: echo '${{ needs.get_build_info.outputs.version }}'
+      - run: echo "$VERSION"
+        env:
+          VERSION: ${{ needs.get_build_info.outputs.version }}
       # ERROR: `tag` is not defined in the reusable workflow
-      - run: echo '${{ needs.get_build_info.outputs.tag }}'
+      - run: echo "$TAG"
+        env:
+          TAG: ${{ needs.get_build_info.outputs.tag }}

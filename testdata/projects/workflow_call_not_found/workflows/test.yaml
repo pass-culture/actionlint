@@ -7,4 +7,6 @@ jobs:
     needs: [caller]
     runs-on: ubuntu-latest
     steps:
-      - run: echo 'Unknown output ${{ needs.caller.outputs.foo }}'
+      - run: echo 'Unknown output $FOO'
+        env:
+          FOO: ${{ needs.caller.outputs.foo }}

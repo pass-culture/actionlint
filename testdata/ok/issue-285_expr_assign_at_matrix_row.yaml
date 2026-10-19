@@ -8,4 +8,6 @@ jobs:
         test:
           - ${{ fromJson('{"foo":{"bar":"test"}}') }}
     steps:
-      - run: echo ${{ matrix.test.foo.bar }}
+      - run: echo "$BAR"
+        env:
+          BAR: ${{ matrix.test.foo.bar }}
