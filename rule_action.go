@@ -352,6 +352,14 @@ func (rule *RuleAction) checkRepoAction(spec string, exec *ExecAction) {
 		return
 	}
 	ref := s[idx+1:]
+
+	gitSHARegex := regexp.MustCompile(`^[0-9a-fA-F]{40}$`)
+
+	if !gitSHARegex.MatchString(ref) {
+		rule.invalidActionFormat(exec.Uses.Pos, spec, "ref is not a commit sha")
+		return
+	}
+
 	s = s[:idx] // remove {ref}
 
 	idx = strings.IndexRune(s, '/')
@@ -392,7 +400,7 @@ func (rule *RuleAction) checkRepoAction(spec string, exec *ExecAction) {
 }
 
 func (rule *RuleAction) invalidActionFormat(pos *Pos, spec string, why string) {
-	rule.Errorf(pos, "specifying action %q in invalid format because %s. available formats are \"{owner}/{repo}@{ref}\" or \"{owner}/{repo}/{path}@{ref}\"", spec, why)
+	rule.Errorf(pos, "specifying action %q in invalid format because %s. available formats are \"{owner}/{repo}@{ref}\" or \"{owner}/{repo}/{path}@{ref}\", with ref being a commit sha", spec, why)
 }
 
 func (rule *RuleAction) missingRunsProp(pos *Pos, prop, ty, action, path string) {
