@@ -1,0 +1,8 @@
+# .github/workflows/example.yml
+name: Example
+on: workflow_dispatch
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: $/.github/actions/my-action
